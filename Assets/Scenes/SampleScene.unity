@@ -280,7 +280,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 111577172}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1642349458}
+        m_TargetAssemblyTypeName: ClickManager, Assembly-CSharp
+        m_MethodName: PurchaseBuildingButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &111577172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,7 +485,7 @@ GameObject:
   - component: {fileID: 400337610}
   - component: {fileID: 400337609}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BuildingArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -507,27 +519,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 400337607}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 3, y: 3}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!222 &400337610
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1592,18 +1598,21 @@ MonoBehaviour:
   _bankedClicks: 0
   _clickValueText: {fileID: 466060236}
   _bankedClicksText: {fileID: 939857528}
-  _bossReward: 0
+  _bossReward: 150
   _bossCurrentHealth: 0
-  _bossMaxHealth: 100
+  _bossMaxHealth: 500
   _bossHealthSlider: {fileID: 842889514}
-  _bossSprites: []
+  _bossSprites:
+  - {fileID: 21300000, guid: 71b62983effcaa94288b8603ad16c8dc, type: 3}
+  - {fileID: 21300000, guid: 8b725a783132334429762d2b9121c887, type: 3}
+  - {fileID: 21300000, guid: 81d6f38cbc6fbb84792702de162692bb, type: 3}
   _bossImage: {fileID: 1199646345}
-  _buildingSprites:
-  - {fileID: 21300000, guid: 600cbecf6630eea41b71225b98138780, type: 3}
-  - {fileID: 21300000, guid: 1495bf3c93ee8644283e38c25a937b6c, type: 3}
-  - {fileID: 21300000, guid: 848407d98a86e9645b15ef5a4fd9ada7, type: 3}
-  _buildingCost: 0
-  _buildingPrefab: {fileID: 0}
+  _buildingCost: 20
+  _buildingCount: 0
+  _buildingDamage: 1
+  _buildingPrefab: {fileID: 1952843444588883279, guid: e1897ede26294b840b449983250b9303, type: 3}
+  _buildingParent: {fileID: 400337607}
+  timer: 0
 --- !u!4 &1642349459
 Transform:
   m_ObjectHideFlags: 0
