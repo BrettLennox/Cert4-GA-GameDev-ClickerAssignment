@@ -15,9 +15,17 @@ public class ClickManager : MonoBehaviour
     [SerializeField] private Text _bankedClicksText;
 
     [Header("Boss Data/Components")]
+    [SerializeField] private int _bossReward;
     [SerializeField] private float _bossCurrentHealth;
     [SerializeField] private float _bossMaxHealth;
     [SerializeField] private Slider _bossHealthSlider;
+    [SerializeField] private List<Sprite> _bossSprites;
+    [SerializeField] private Image _bossImage;
+
+    [Header("Buildings Data/Components")]
+    [SerializeField] private List<Sprite> _buildingSprites;
+    [SerializeField] private int _buildingCost;
+    [SerializeField] private GameObject _buildingPrefab;
 
     private void Start()
     {
@@ -54,12 +62,30 @@ public class ClickManager : MonoBehaviour
         _bossCurrentHealth = Mathf.Max(_bossCurrentHealth - damage, 0);
         if(_bossCurrentHealth <= 0)
         {
-            Debug.Log("BOSS DIED");
+            BossDeath();
+            RespawnRandomBoss();
         }
     }
 
     private void UpdateBossHealthSlider()
     {
         _bossHealthSlider.value = _bossCurrentHealth;
+    }
+
+    private void BossDeath()
+    {
+        _bankedClicks += _bossReward;
+    }
+
+    private void RespawnRandomBoss()
+    {
+        SelectRandomBossImage();
+        _bossCurrentHealth = _bossMaxHealth;
+    }
+
+    private void SelectRandomBossImage()
+    {
+        int randomNumber = Random.Range(0, _bossSprites.Count);
+        _bossImage.sprite = _bossSprites[randomNumber];
     }
 }
