@@ -8,7 +8,7 @@ public class ClickManager : MonoBehaviour
     [Header("Click Related Values")]
     [SerializeField] private int _clickValue;
     [SerializeField] private int _clickDamage;
-    [SerializeField] private float _bankedClicks;
+    [SerializeField] public static float bankedClicks;
 
     [Header("Text Components")]
     [SerializeField] private Text _clickValueText;
@@ -16,20 +16,11 @@ public class ClickManager : MonoBehaviour
 
     [Header("Boss Data/Components")]
     [SerializeField] private int _bossReward;
-    [SerializeField] private float _bossCurrentHealth;
+    [SerializeField] public float _bossCurrentHealth;
     [SerializeField] private float _bossMaxHealth;
     [SerializeField] private Slider _bossHealthSlider;
     [SerializeField] private List<Sprite> _bossSprites;
     [SerializeField] private Image _bossImage;
-
-    [Header("Buildings Data/Components")]
-    [SerializeField] private int _buildingCost;
-    [SerializeField] private int _buildingCount;
-    [SerializeField] private float _buildingDamage = 1f;
-    [SerializeField] private GameObject _buildingPrefab;
-    [SerializeField] private GameObject _buildingParent;
-
-    [SerializeField] private float timer;
 
     private void Start()
     {
@@ -39,10 +30,8 @@ public class ClickManager : MonoBehaviour
 
     private void Update()
     {
-        timer += Time.deltaTime;
         UpdateBankedClickText();
         UpdateBossHealthSlider();
-        BuildingsDamageBoss();
     }
 
     public void ClickButton()
@@ -50,21 +39,7 @@ public class ClickManager : MonoBehaviour
         _clickDamage = Random.Range(1, 4);
         DisplayClickValue(_clickDamage);
         DamageBoss(_clickDamage);
-        _bankedClicks += _clickValue;
-    }
-
-    public void PurchaseBuildingButton()
-    {
-        if(_bankedClicks >= _buildingCost)
-        {
-            _bankedClicks -= _buildingCost;
-            _buildingCount++;
-            Instantiate(_buildingPrefab, _buildingParent.transform);
-        }
-        else
-        {
-            Debug.Log("INSUFFICIENT FUNDS");
-        }
+        bankedClicks += _clickValue;
     }
 
     private void DisplayClickValue(int clickValue)
@@ -74,13 +49,13 @@ public class ClickManager : MonoBehaviour
 
     private void UpdateBankedClickText()
     {
-        _bankedClicksText.text = _bankedClicks.ToString("0");
+        _bankedClicksText.text = bankedClicks.ToString("0");
     }
 
-    private void DamageBoss(int damage)
+    public void DamageBoss(int damage)
     {
         _bossCurrentHealth = Mathf.Max(_bossCurrentHealth - damage, 0);
-        if(_bossCurrentHealth <= 0)
+        if (_bossCurrentHealth <= 0)
         {
             BossDeath();
             RespawnRandomBoss();
@@ -94,7 +69,7 @@ public class ClickManager : MonoBehaviour
 
     private void BossDeath()
     {
-        _bankedClicks += _bossReward;
+        bankedClicks += _bossReward;
     }
 
     private void RespawnRandomBoss()
@@ -107,15 +82,5 @@ public class ClickManager : MonoBehaviour
     {
         int randomNumber = Random.Range(0, _bossSprites.Count);
         _bossImage.sprite = _bossSprites[randomNumber];
-    }
-
-    private void BuildingsDamageBoss()
-    {
-        if (timer >= 1 && _buildingCount >= 1)
-        {
-            DamageBoss(_buildingCount * (int)_buildingDamage);
-            _bankedClicks += _clickValue * _buildingCount;
-            timer = 0f;
-        }
     }
 }
