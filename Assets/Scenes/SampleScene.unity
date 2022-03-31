@@ -344,6 +344,7 @@ MonoBehaviour:
   _costText: {fileID: 1675207053}
   _buildingCountText: {fileID: 297545488}
   _unlocked: 0
+  _hasBought: 0
   _buildingDamage: 1
   _buildingClickReward: 1
   _allyPrefab: {fileID: 1952843444588883279, guid: e1897ede26294b840b449983250b9303, type: 3}
@@ -1010,6 +1011,8 @@ MonoBehaviour:
   _costText: {fileID: 1331556251}
   _buildingCountText: {fileID: 1760012829}
   _unlocked: 0
+  _hasBought: 0
+  _predecessor: {fileID: 172937013}
 --- !u!1 &670432435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,7 +1507,7 @@ GameObject:
   - component: {fileID: 1199646345}
   - component: {fileID: 1199646347}
   m_Layer: 5
-  m_Name: ClickImage
+  m_Name: Boss Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1613,7 +1616,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1642349458}
+      - m_Target: {fileID: 1598870122}
         m_TargetAssemblyTypeName: ClickManager, Assembly-CSharp
         m_MethodName: ClickButton
         m_Mode: 1
@@ -1863,7 +1866,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1642349458}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ClickManager, Assembly-CSharp
         m_MethodName: PurchaseBuildingButton
         m_Mode: 1
@@ -1988,7 +1991,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567656687}
   m_CullTransparentMesh: 1
---- !u!1 &1642349457
+--- !u!1 &1598870120
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1996,22 +1999,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1642349459}
-  - component: {fileID: 1642349458}
+  - component: {fileID: 1598870123}
+  - component: {fileID: 1598870122}
+  - component: {fileID: 1598870121}
   m_Layer: 0
-  m_Name: ClickManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1642349458
+--- !u!114 &1598870121
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642349457}
+  m_GameObject: {fileID: 1598870120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f7deb575f310644bfa49d02a17de69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bossReward: 150
+  _currentHealth: 0
+  _maxHealth: 500
+  _healthSlider: {fileID: 842889514}
+  _bossSprites:
+  - {fileID: 21300000, guid: 71b62983effcaa94288b8603ad16c8dc, type: 3}
+  - {fileID: 21300000, guid: 8b725a783132334429762d2b9121c887, type: 3}
+  - {fileID: 21300000, guid: 81d6f38cbc6fbb84792702de162692bb, type: 3}
+  _bossImage: {fileID: 1199646345}
+--- !u!114 &1598870122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598870120}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb0434190a4f8e84a8cbb7f7887fa22c, type: 3}
@@ -2021,22 +2046,13 @@ MonoBehaviour:
   _clickDamage: 0
   _clickValueText: {fileID: 466060236}
   _bankedClicksText: {fileID: 939857528}
-  _bossReward: 150
-  _bossCurrentHealth: 0
-  _bossMaxHealth: 500
-  _bossHealthSlider: {fileID: 842889514}
-  _bossSprites:
-  - {fileID: 21300000, guid: 71b62983effcaa94288b8603ad16c8dc, type: 3}
-  - {fileID: 21300000, guid: 8b725a783132334429762d2b9121c887, type: 3}
-  - {fileID: 21300000, guid: 81d6f38cbc6fbb84792702de162692bb, type: 3}
-  _bossImage: {fileID: 1199646345}
---- !u!4 &1642349459
+--- !u!4 &1598870123
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1642349457}
+  m_GameObject: {fileID: 1598870120}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}

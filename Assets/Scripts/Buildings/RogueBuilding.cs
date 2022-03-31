@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RogueBuilding : Building
 {
+    [SerializeField] private GameObject _predecessor;
     protected override void Start()
     {
         base.Start();
@@ -12,7 +13,7 @@ public class RogueBuilding : Building
     protected override void Update()
     {
         base.Update();
-        DisplayButton(ClickManager.bankedClicks >= _buildingCost && !_unlocked);
+        DisplayButton(ClickManager.bankedClicks >= _buildingCost && !_unlocked && _predecessor.GetComponent<Building>().Unlocked());
     }
 
     protected override void DisplayButton(bool condition)

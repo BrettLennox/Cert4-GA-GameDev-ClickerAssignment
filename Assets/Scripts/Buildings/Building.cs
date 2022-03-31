@@ -12,6 +12,7 @@ public class Building : MonoBehaviour
     [SerializeField] protected Text _costText;
     [SerializeField] protected Text _buildingCountText;
     [SerializeField] protected bool _unlocked;
+    [SerializeField] protected bool _hasBought;
 
     protected virtual void Start()
     {
@@ -59,5 +60,10 @@ public class Building : MonoBehaviour
     private void UpdateBuildingCountText()
     {
         _buildingCountText.text = _buildingCount.ToString();
+    }
+
+    public bool Unlocked()
+    {
+        return _hasBought;
     }
 }

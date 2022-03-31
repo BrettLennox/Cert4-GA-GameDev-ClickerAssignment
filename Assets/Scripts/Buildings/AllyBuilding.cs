@@ -9,13 +9,17 @@ public class AllyBuilding : Building
     [SerializeField] private GameObject _allyPrefab;
     [SerializeField] private Transform _allyParent;
     private bool _isRunning;
-    private ClickManager _cm;
+    private BossManager _bm;
 
     public override void PurchaseBuilding()
     {
         base.PurchaseBuilding();
         if (_canPurchase)
         {
+            if (!_hasBought)
+            {
+                _hasBought = true;
+            }
             _buildingCount++;
             ClickManager.bankedClicks -= _buildingCost;
             _buildingCost += (_buildingCost / 2);
@@ -36,7 +40,7 @@ public class AllyBuilding : Building
     protected override void Start()
     {
         base.Start();
-        _cm = GameObject.Find("ClickManager").GetComponent<ClickManager>();
+        _bm = GameObject.Find("GameManager").GetComponent<BossManager>();
     }
 
     protected override void DisplayButton(bool condition)
@@ -49,7 +53,7 @@ public class AllyBuilding : Building
         while (_buildingCount >= 1)
         {
             _isRunning = true;
-            _cm.DamageBoss(_buildingDamage * _buildingCount);
+            _bm.DamageBoss(_buildingDamage * _buildingCount);
             ClickManager.bankedClicks += (_buildingClickReward * _buildingCount);
             yield return new WaitForSeconds(1f);
         }
