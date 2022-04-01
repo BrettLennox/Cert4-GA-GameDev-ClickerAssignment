@@ -9,6 +9,7 @@ public class ClickManager : MonoBehaviour
     [SerializeField] private int _clickValue;
     [SerializeField] private int _clickDamage;
     [SerializeField] public static float bankedClicks;
+    [SerializeField] public static bool shouldCrit;
 
     [Header("Text Components")]
     [SerializeField] private Text _clickValueText;
@@ -29,6 +30,10 @@ public class ClickManager : MonoBehaviour
     public void ClickButton()
     {
         _clickDamage = Random.Range(1, 4);
+        if (shouldCrit)
+        {
+            //int critRoll = Random
+        }
         DisplayClickValue(_clickDamage);
         _bm.DamageBoss(_clickDamage);
         bankedClicks += _clickValue;
