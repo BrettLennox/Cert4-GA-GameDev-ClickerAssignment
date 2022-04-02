@@ -5,7 +5,7 @@ using UnityEngine;
 public class ClickCritUpgrade : Upgrade
 {
     [SerializeField] private UpgradeData _upgrade;
-    protected override void UpgradeBehaviour()
+    protected override void PurchaseUpgrade()
     {
         if (ClickManager.bankedClicks >= _upgrade.upgradeCost)
         {

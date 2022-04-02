@@ -12,5 +12,5 @@ public abstract class Upgrade : MonoBehaviour
         [SerializeField] public int amountOwned;
     }
 
-    protected abstract void UpgradeBehaviour();
+    protected abstract void PurchaseUpgrade();
 }

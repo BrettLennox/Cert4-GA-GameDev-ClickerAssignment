@@ -22,7 +22,7 @@ public class AllyBuilding : Building
             }
             _buildingCount++;
             ClickManager.bankedClicks -= _buildingCost;
-            _buildingCost += (_buildingCost / 2);
+            _buildingCost += (_buildingCost / 4);
             Instantiate(_allyPrefab, _allyParent);
         }
     }

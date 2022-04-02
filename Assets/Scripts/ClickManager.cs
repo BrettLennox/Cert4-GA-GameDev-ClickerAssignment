@@ -12,8 +12,10 @@ public class ClickManager : MonoBehaviour
     [SerializeField] public static bool shouldCrit;
 
     [Header("Text Components")]
-    [SerializeField] private Text _clickValueText;
     [SerializeField] private Text _bankedClicksText;
+
+    [SerializeField] private RectTransform _damageNumberBounds;
+    [SerializeField] private GameObject _damageNumberPrefab;
 
     private BossManager _bm;
 
@@ -34,14 +36,23 @@ public class ClickManager : MonoBehaviour
         {
             //int critRoll = Random
         }
-        DisplayClickValue(_clickDamage);
         _bm.DamageBoss(_clickDamage);
+        InstantiateDamageNumbers();
         bankedClicks += _clickValue;
     }
 
-    private void DisplayClickValue(int clickValue)
+    private void InstantiateDamageNumbers()
     {
-        _clickValueText.text = clickValue.ToString();
+        Vector3 spawnPosition = GetBottomleftCorner(_damageNumberBounds) - new Vector3(Random.Range(0, _damageNumberBounds.rect.x), Random.Range(0, _damageNumberBounds.rect.y), 0);
+        GameObject dmgText = Instantiate(_damageNumberPrefab, spawnPosition, Quaternion.identity, _damageNumberBounds);
+        dmgText.GetComponent<Text>().text = _clickDamage.ToString();
+    }
+
+    private Vector3 GetBottomleftCorner(RectTransform rt)
+    {
+        Vector3[] v = new Vector3[4];
+        rt.GetWorldCorners(v);
+        return v[0];
     }
 
     private void UpdateBankedClickText()
