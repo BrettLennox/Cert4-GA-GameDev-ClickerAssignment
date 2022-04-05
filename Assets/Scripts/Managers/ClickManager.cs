@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class ClickManager : MonoBehaviour
 {
     [Header("Click Related Values")]
-    [SerializeField] private int _clickValue;
-    [SerializeField] private int _clickDamage;
+    [SerializeField] public int clickValue;
+    [SerializeField] public int clickDamage;
+    [SerializeField] public int clickDamageMultiplier = 1;
     [SerializeField] public static float bankedClicks;
     [SerializeField] public static bool shouldCrit;
 
@@ -17,11 +18,11 @@ public class ClickManager : MonoBehaviour
     [SerializeField] private RectTransform _damageNumberBounds;
     [SerializeField] private GameObject _damageNumberPrefab;
 
-    private BossManager _bm;
+    private BossManager _bossManager;
 
     private void Start()
     {
-        _bm = GetComponent<BossManager>();
+        _bossManager = GetComponent<BossManager>();
     }
 
     private void Update()
@@ -31,21 +32,25 @@ public class ClickManager : MonoBehaviour
 
     public void ClickButton()
     {
-        _clickDamage = Random.Range(1, 4);
-        if (shouldCrit)
-        {
-            //int critRoll = Random
-        }
-        _bm.DamageBoss(_clickDamage);
+        //sets clickDamage to a random
+        clickDamage = Random.Range(1, 4);
+        //multiplies clickDamage by clickDamageMultiplier
+        clickDamage *= clickDamageMultiplier;
+        //calls ClickDamageBoss from bossManager script
+        _bossManager.ClickDamageBoss(clickDamage);
+        //calls the InstantiateDamageNumbers method
         InstantiateDamageNumbers();
-        bankedClicks += _clickValue;
+        //increase bankedClicks by clickValue
+        bankedClicks += clickValue;
     }
 
     private void InstantiateDamageNumbers()
     {
+        //sets the spawn position for the damageNumbers within the bounds of the damageNumberBounds gameobject
         Vector3 spawnPosition = GetBottomleftCorner(_damageNumberBounds) - new Vector3(Random.Range(0, _damageNumberBounds.rect.x), Random.Range(0, _damageNumberBounds.rect.y), 0);
+        //instantiate dmgText and adjust its text to display clickDamage
         GameObject dmgText = Instantiate(_damageNumberPrefab, spawnPosition, Quaternion.identity, _damageNumberBounds);
-        dmgText.GetComponent<Text>().text = _clickDamage.ToString();
+        dmgText.GetComponent<Text>().text = clickDamage.ToString();
     }
 
     private Vector3 GetBottomleftCorner(RectTransform rt)

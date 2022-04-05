@@ -4,43 +4,44 @@ using UnityEngine;
 
 public class AllyBuilding : Building
 {
-    [SerializeField] private int _buildingDamage;
+    [SerializeField] private float _buildingDamage;
     [SerializeField] private int _buildingClickReward;
     [SerializeField] private GameObject _allyPrefab;
     [SerializeField] private Transform _allyParent;
     private bool _isRunning;
-    private BossManager _bm;
+    private BossManager _bossManager;
 
-    public override void PurchaseBuilding()
+    protected override void Start()
     {
-        base.PurchaseBuilding();
-        if (_canPurchase)
-        {
-            if (!_hasBought)
-            {
-                _hasBought = true;
-            }
-            _buildingCount++;
-            ClickManager.bankedClicks -= _buildingCost;
-            _buildingCost += (_buildingCost / 4);
-            Instantiate(_allyPrefab, _allyParent);
-        }
+        base.Start();
+        _bossManager = GameObject.Find("GameManager").GetComponent<BossManager>();
     }
 
     protected override void Update()
     {
         base.Update();
-        DisplayButton(ClickManager.bankedClicks >= _buildingCost && !_unlocked);
-        if (!_isRunning)
+        DisplayButton(ClickManager.bankedClicks >= _buildingCost);
+        if (_buildingCount > 0)
         {
-            StartCoroutine(AllyBuildingCoroutine());
+            BuildingBehaviour();
         }
     }
 
-    protected override void Start()
+    public override void PurchaseBuilding()
     {
-        base.Start();
-        _bm = GameObject.Find("GameManager").GetComponent<BossManager>();
+        base.PurchaseBuilding();
+        //if the condition for canPurchase are true (if we have enough currency to purchase)
+        if (_canPurchase)
+        {
+            //increase the count of buildings owned
+            _buildingCount++;
+            //decrease value of banked clicks by the cost
+            ClickManager.bankedClicks -= _buildingCost;
+            //increase the value of the cost for the building
+            _buildingCost += (_buildingCost / 4);
+            //instantiate the allyPrefab under the allyParent gameobject
+            Instantiate(_allyPrefab, _allyParent);
+        }
     }
 
     protected override void DisplayButton(bool condition)
@@ -48,14 +49,10 @@ public class AllyBuilding : Building
         base.DisplayButton(condition);
     }
 
-    private IEnumerator AllyBuildingCoroutine()
+    private void BuildingBehaviour()
     {
-        while (_buildingCount >= 1)
-        {
-            _isRunning = true;
-            _bm.DamageBoss(_buildingDamage * _buildingCount);
-            ClickManager.bankedClicks += (_buildingClickReward * _buildingCount);
-            yield return new WaitForSeconds(1f);
-        }
+        //using Mathf.Lerp increase the bankedClicks variable by the buildingReward multiplied by the amount of buildings owned over a set time
+        ClickManager.bankedClicks = Mathf.Lerp(ClickManager.bankedClicks, ClickManager.bankedClicks += _buildingClickReward * _buildingCount, 1f * Time.deltaTime);
+        _bossManager.BuildingDamageBoss(_buildingDamage * _buildingCount);
     }
 }
