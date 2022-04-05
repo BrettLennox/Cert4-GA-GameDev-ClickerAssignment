@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public abstract class Upgrade : MonoBehaviour
 {
+    [Header("Upgrade Data/Components")]
     [SerializeField] protected int upgradeCost;
     [SerializeField] private Text _costText;
 

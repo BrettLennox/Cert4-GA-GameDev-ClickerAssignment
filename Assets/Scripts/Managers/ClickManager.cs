@@ -53,6 +53,7 @@ public class ClickManager : MonoBehaviour
         dmgText.GetComponent<Text>().text = clickDamage.ToString();
     }
 
+    //this function creates a Vector3 list that stores the values of the corners fed in and then returns the positions of the first element in the list
     private Vector3 GetBottomleftCorner(RectTransform rt)
     {
         Vector3[] v = new Vector3[4];
@@ -62,6 +63,7 @@ public class ClickManager : MonoBehaviour
 
     private void UpdateBankedClickText()
     {
+        //sets the bankedClicksText text to be the value of bankedClicks
         _bankedClicksText.text = bankedClicks.ToString("0");
     }
 }

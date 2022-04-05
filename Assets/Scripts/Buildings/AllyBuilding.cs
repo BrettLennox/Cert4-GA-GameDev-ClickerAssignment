@@ -8,7 +8,6 @@ public class AllyBuilding : Building
     [SerializeField] private int _buildingClickReward;
     [SerializeField] private GameObject _allyPrefab;
     [SerializeField] private Transform _allyParent;
-    private bool _isRunning;
     private BossManager _bossManager;
 
     protected override void Start()
@@ -38,7 +37,7 @@ public class AllyBuilding : Building
             //decrease value of banked clicks by the cost
             ClickManager.bankedClicks -= _buildingCost;
             //increase the value of the cost for the building
-            _buildingCost += (_buildingCost / 4);
+            _buildingCost += (_buildingCost / 5);
             //instantiate the allyPrefab under the allyParent gameobject
             Instantiate(_allyPrefab, _allyParent);
         }

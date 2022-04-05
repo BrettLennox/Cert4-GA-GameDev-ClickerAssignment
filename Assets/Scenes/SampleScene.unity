@@ -329,7 +329,6 @@ MonoBehaviour:
   _canPurchase: 0
   _costText: {fileID: 1675207053}
   _buildingCountText: {fileID: 297545488}
-  _unlocked: 0
   _hasBought: 0
   _buildingDamage: 1
   _buildingClickReward: 1
@@ -1797,11 +1796,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15fec50e5ec7ee74590045df1a85fdc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeCost: 50
   _costText: {fileID: 2003490926}
-  _upgrade:
-    upgradeName: Click Upgrade
-    upgradeCost: 25
-    amountOwned: 0
 --- !u!1 &1567656687
 GameObject:
   m_ObjectHideFlags: 0
