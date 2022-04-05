@@ -28,6 +28,10 @@ public class ClickManager : MonoBehaviour
     private void Update()
     {
         UpdateBankedClickText();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ExitApplication();
+        }
     }
 
     public void ClickButton()
@@ -65,5 +69,14 @@ public class ClickManager : MonoBehaviour
     {
         //sets the bankedClicksText text to be the value of bankedClicks
         _bankedClicksText.text = bankedClicks.ToString("0");
+    }
+
+    //Exits the application
+    private void ExitApplication()
+    {
+            Application.Quit();
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 }
